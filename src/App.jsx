@@ -102,7 +102,7 @@ const translations = {
           period: "Out 2022 - Set 2025",
           location: "Teresina, Piauí, Brazil",
           description:
-            "Responsável pela gestão e recuperação de itens zero-stock, mantendo a disponibilidade abaixo de 3%, otimizando processos e garantindo eficiência na cadeia de suprimentos.",
+            "Responsável pela gestão e recuperação de itens com estoque zerado. Essa função exigiu uma forte estruturação lógica de processos e a identificação de padrões para garantir a disponibilidade contínua dos itens",
         },
         {
           company: "AIESEC",
@@ -118,7 +118,7 @@ const translations = {
           period: "Out 2021 - Jun 2022",
           location: "Teresina, Piauí, Brazil",
           description:
-            "Apoio em rotinas de gestão de estoque e inspeção, contribuindo para otimização de processos e controle de dados.",
+            "Contribuí para a organização e monitoramento de rotinas de manutenção, garantindo maior confiabilidade e eficiência nos processos.",
         },
       ],
       academic: [
@@ -233,7 +233,7 @@ const translations = {
           period: "Oct 2022 - Sep 2025",
           location: "Teresina, Piauí, Brazil",
           description:
-            "Responsible for managing and recovering zero-stock items, maintaining availability below 3%, optimizing processes, and ensuring supply chain efficiency.",
+            "Responsible for the management and recovery of zero-stock items. This role demands a highly logical structuring of processes and the identification of patterns to ensure continuous item availability.I operate proactively, developing and implementing strategies that consistently keep zero-stock items below a 3% target. This directly ensures the continuous flow of operations and significantly contributes to the efficiency of the supply chain.",
         },
         {
           company: "AIESEC",
@@ -249,7 +249,7 @@ const translations = {
           period: "Oct 2021 - Jun 2022",
           location: "Teresina, Piauí, Brazil",
           description:
-            "Support in stock management and inspection routines, contributing to process optimization and data control.",
+            "Contributed to the organization and monitoring of maintenance routines, ensuring greater reliability and process efficiency.",
         },
       ],
       academic: [
@@ -987,8 +987,12 @@ function Header({ language, setLanguage }) {
               <li key={href}>
                 <a
                   href={href}
-                  className="text-white text-3xl font-semibold hover:text-goldMetallic transition-colors duration-300"
-                  onClick={() => setIsMenuOpen(false)}
+                  className={`text-white text-3xl font-semibold hover:text-goldMetallic transition-colors duration-300 ${
+                    activeSection === href.substring(1)
+                      ? "text-goldMetallic"
+                      : ""
+                  }`}
+                  onClick={() => setIsMenuOpen(false)} // Fecha o menu ao clicar
                 >
                   {label}
                 </a>
