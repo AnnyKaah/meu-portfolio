@@ -138,7 +138,7 @@ Siga os passos abaixo para executar o projeto na sua máquina.
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/AnnyKaah/anny-portfolio.git
+   git clone https://github.com/AnnyKaah/meu-portfolio.git
    ```
 
 2. **Navegue até o diretório do projeto:**
