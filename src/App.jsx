@@ -28,6 +28,12 @@ import {
   SiGooglegemini,
 } from "react-icons/si";
 
+import perfilImg from "/perfil.jpeg";
+import avatarImg from "/img/avatar.jpeg";
+import hashLivreImg from "/img/hashLivre2.png";
+import apiIaImg from "/img/API-IA.png";
+import visualizacaoDadosImg from "/img/screenshot.png";
+
 const translations = {
   pt: {
     navLinks: [
@@ -363,7 +369,7 @@ function Hero({ language }) {
         {/* Imagem */}
         <motion.div variants={heroItemVariants}>
           <img
-            src="/perfil.jpeg"
+            src={perfilImg}
             alt="Anny Karoline"
             className="w-48 h-48 lg:w-64 lg:h-64 rounded-full border-4 border-goldMetallic shadow-lg object-cover"
           />
@@ -440,7 +446,7 @@ function About({ language }) {
       className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 px-6 py-20 bg-[#121212]"
     >
       <motion.img
-        src="/img/avatar.jpeg"
+        src={avatarImg}
         alt="Anny Karoline"
         className="w-48 h-48 rounded-full border-4 border-goldMetallic shadow-lg object-cover"
         initial={{ opacity: 0, x: -100 }}
@@ -541,19 +547,19 @@ function Skills({ language }) {
 
 const projetos = [
   {
-    image: "/img/hashLivre2.png",
+    image: hashLivreImg,
     techs: ["Express", "Node.js", "MongoDB", "JavaScript"],
     repo: "https://github.com/AnnyKaah/ecommecer-JS-hash",
     demo: "#",
   },
   {
-    image: "/img/API-IA.png",
+    image: apiIaImg,
     techs: ["React", "Node.js", "Express", "Google Gemini API", "CSS"],
     repo: "https://github.com/AnnyKaah/gemini-ai-chat-assistant",
     demo: "#",
   },
   {
-    image: "/img/visualizacao-dados.png",
+    image: visualizacaoDadosImg,
     techs: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
     repo: "https://github.com/AnnyKaah/visualizacao-dados",
     demo: "#",
