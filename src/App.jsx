@@ -32,7 +32,7 @@ import perfilImg from "/perfil.jpeg";
 import avatarImg from "/img/avatar.jpeg";
 import hashLivreImg from "/img/hashLivre2.png";
 import apiIaImg from "/img/API-IA.png";
-import visualizacaoDadosImg from "/img/screenshot.png";
+import HabitheroImg from "/img/hero-vs2.png";
 
 const translations = {
   pt: {
@@ -45,13 +45,8 @@ const translations = {
       { href: "#contato", label: "Contato" },
     ],
     hero: {
-      typing: [
-        "Desenvolvedora Full Stack",
-        "Paixão por Código",
-        "Criando soluções inovadoras",
-      ],
-      subtitle:
-        "Transformando ideias em soluções digitais inovadoras e funcionais.",
+      typing: ["Dev Full Stack", "Paixão por Código", "Da ideia ao deploy"],
+      subtitle: "Da ideia ao código, do design à funcionalidade.",
       ctaProjects: "Ver Projetos",
       ctaContact: "Entrar em Contato",
       ctaCV: "Baixar Currículo",
@@ -176,13 +171,8 @@ const translations = {
       { href: "#contato", label: "Contact" },
     ],
     hero: {
-      typing: [
-        "Full Stack Developer",
-        "Passion for Code",
-        "Building innovative solutions",
-      ],
-      subtitle:
-        "Transforming ideas into innovative and functional digital solutions.",
+      typing: ["Full Stack Developer", "Passion for Code", "From idea to code"],
+      subtitle: "From idea to code, from design to functionality.",
       ctaProjects: "View Projects",
       ctaContact: "Get in Touch",
       ctaCV: "Download CV",
@@ -233,7 +223,7 @@ const translations = {
           period: "Oct 2022 - Sep 2025",
           location: "Teresina, Piauí, Brazil",
           description:
-            "Responsible for the management and recovery of zero-stock items. This role demands a highly logical structuring of processes and the identification of patterns to ensure continuous item availability.I operate proactively, developing and implementing strategies that consistently keep zero-stock items below a 3% target. This directly ensures the continuous flow of operations and significantly contributes to the efficiency of the supply chain.",
+            "Responsible for the management and recovery of zero-stock items. This role demands a highly logical structuring of processes and the identification of patterns to ensure continuous item availability.",
         },
         {
           company: "AIESEC",
@@ -249,7 +239,7 @@ const translations = {
           period: "Oct 2021 - Jun 2022",
           location: "Teresina, Piauí, Brazil",
           description:
-            "Contributed to the organization and monitoring of maintenance routines, ensuring greater reliability and process efficiency.",
+            "Support in stock management and inspection routines, contributing to process optimization and data control.",
         },
       ],
       academic: [
@@ -303,29 +293,30 @@ function TypingAnimation({ typingTexts }) {
   const [textIndex, setTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [speed, setSpeed] = useState(150);
+  const speed = 150; // Removido useState, pois o valor é constante
 
   useEffect(() => {
     const currentText = typingTexts[textIndex];
     let timer;
 
-    if (!isDeleting && displayedText.length < currentText.length) {
-      timer = setTimeout(() => {
+    const handleTyping = () => {
+      if (!isDeleting && displayedText.length < currentText.length) {
         setDisplayedText(currentText.slice(0, displayedText.length + 1));
-      }, speed);
-    } else if (isDeleting && displayedText.length > 0) {
-      timer = setTimeout(() => {
+      } else if (isDeleting && displayedText.length > 0) {
         setDisplayedText(currentText.slice(0, displayedText.length - 1));
-      }, speed / 2);
-    } else if (!isDeleting && displayedText.length === currentText.length) {
-      timer = setTimeout(() => setIsDeleting(true), 1500);
-    } else if (isDeleting && displayedText.length === 0) {
-      setIsDeleting(false);
-      setTextIndex((prev) => (prev + 1) % typingTexts.length);
-    }
+      } else if (!isDeleting && displayedText.length === currentText.length) {
+        setTimeout(() => setIsDeleting(true), 1500);
+      } else if (isDeleting && displayedText.length === 0) {
+        setIsDeleting(false);
+        setTextIndex((prev) => (prev + 1) % typingTexts.length);
+      }
+    };
+
+    const typingSpeed = isDeleting ? speed / 2 : speed;
+    timer = setTimeout(handleTyping, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, textIndex, speed]);
+  }, [displayedText, isDeleting, textIndex, speed, typingTexts]);
 
   return (
     <h1 className="text-4xl md:text-6xl font-futuristic font-bold text-white whitespace-nowrap border-r-4 border-goldMetallic pr-2 overflow-hidden max-w-full">
@@ -407,7 +398,7 @@ function Hero({ language }) {
               <span>{translations[language].hero.ctaContact}</span>
             </a>
             <a
-              href="/curriculo.pdf"
+              href="https://docs.google.com/document/d/1owrzDln4ZECsyVK3Gr5Iq9KODSrwyWdvbbsAIqOZEW8/edit?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 border-2 border-goldMetallic text-goldMetallic font-semibold rounded-md hover:bg-goldMetallic hover:text-black transition"
@@ -559,7 +550,7 @@ const projetos = [
     demo: "#",
   },
   {
-    image: visualizacaoDadosImg,
+    image: HabitheroImg,
     techs: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
     repo: "https://github.com/AnnyKaah/visualizacao-dados",
     demo: "#",
@@ -580,9 +571,9 @@ function Projetos({ language }) {
           "Uma interface de chat moderna e responsiva para interagir com a API do Google Gemini, permitindo conversas baseadas em texto e análise de imagens.",
       },
       {
-        title: "StudyFlow",
+        title: "HabitHero",
         description:
-          "Desenvolvimento de uma plataforma completa para ensino online, integrando funcionalidades de cadastro, aulas ao vivo, avaliações e acompanhamento de desempenho.",
+          "Um Dashboard interativo de controle de hábitos, em que os usuários concluem missões como em um jogo para derrotar vilões a cada nível. Cada hábito que o usuário completa é um golpe contra eles.",
       },
     ],
     en: [
@@ -597,9 +588,9 @@ function Projetos({ language }) {
           "A modern and responsive chat interface to interact with the Google Gemini API, allowing for text-based conversations and image analysis.",
       },
       {
-        title: "StudyFlow",
+        title: "HabitHero",
         description:
-          "Development of a complete online learning platform, integrating features for registration, live classes, assessments, and performance tracking.",
+          "An interactive habit-tracking dashboard where users complete game-like missions to defeat villains at each level. Each habit the user completes is a strike against them.",
       },
     ],
   };
@@ -796,6 +787,7 @@ function Contact({ language }) {
         }
       }
     } catch (error) {
+      console.error("Form submission error:", error); // Adicionado log de erro
       setStatus(translations[language].contact.form.error);
     }
   }
