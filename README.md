@@ -42,7 +42,6 @@ This project was built using the following technologies:
   - **Tailwind CSS:** CSS framework for rapid and responsive styling.
   - **Framer Motion:** For complex and fluid animations.
   - **React Icons:** For including icons.
-  - **AOS (Animate On Scroll):** For entry animations on scroll.
 
 ### ⚙️ How to Run Locally
 
@@ -98,7 +97,7 @@ Did you like what you saw? Let's connect!
 </p>
 
 <p align="center">
-  <a href="https://seu-portfolio.vercel.app/">
+  <a href="https://anny-dev.vercel.app/">
     <strong>✨ Acessar a demonstração ao vivo ✨</strong>
   </a>
 </p>
@@ -122,7 +121,6 @@ Este projeto foi construído utilizando as seguintes tecnologias:
   - **Tailwind CSS:** Framework CSS para estilização rápida e responsiva.
   - **Framer Motion:** Para animações complexas e fluidas.
   - **React Icons:** Para a inclusão de ícones.
-  - **AOS (Animate On Scroll):** Para animações de entrada ao rolar a página.
 
 ### ⚙️ Como Rodar o Projeto Localmente
 

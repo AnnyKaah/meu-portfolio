@@ -2,15 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --accent-1: #ff6fb5; /* rosa */
+  --accent-2: #9b5cff; /* roxo */
+  --accent-3: #ff4fa3; /* magenta */
+  --highlight-color: var(--accent-2); /* Roxo para o modo claro */
+  --star-color: #2d3748; /* Cinza escuro para estrelas no modo claro */
+}
+
+.dark {
+  --highlight-color: var(--accent-1); /* Rosa para o modo escuro */
+  --star-color: #ffffff; /* Branco para estrelas no modo escuro */
+}
+
+/* Efeito de grade de neon para o fundo */
+.neon-grid {
+  background-image: linear-gradient(
+      var(--highlight-color, #00F5A0) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to right, var(--highlight-color, #00F5A0) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  opacity: 0.1;
+  animation: background-pan 30s linear infinite;
+}
+
 /* Custom scrollbar for dark mode */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #1a1a2e;
+  background: #1a1a2e; /* Fundo da trilha da barra de rolagem */
 }
 ::-webkit-scrollbar-thumb {
-  background: #6a0dad;
+  background: var(--accent-2); /* Cor do polegar da barra de rolagem (roxo) */
   border-radius: 10px;
 }
 
@@ -22,6 +47,61 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+/* Adicionando estilos da Nebulosa e Estrelas que podem estar faltando */
+.nebula-bg {
+  background: radial-gradient(ellipse at 20% 80%, rgba(238, 130, 238, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 70% 10%, rgba(138, 43, 226, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(255, 20, 147, 0.2) 0%, transparent 40%);
+  animation: pulse-nebula 25s infinite ease-in-out;
+  opacity: 0.3; /* Opacidade menor para o modo claro */
+}
+
+.dark .nebula-bg {
+  opacity: 0.5; /* Opacidade original para o modo escuro */
+}
+
+@keyframes pulse-nebula {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+}
+
+#stars1 {
+  box-shadow: 539px 1381px var(--star-color), 196px 1682px var(--star-color), 131px 1325px var(--star-color), 1256px 1056px var(--star-color), 1124px 175px var(--star-color), 111px 1273px var(--star-color), 1399px 1219px var(--star-color), 1838px 183px var(--star-color), 1490px 1436px var(--star-color), 1421px 1620px var(--star-color), 1213px 1449px var(--star-color), 1438px 148px var(--star-color), 1080px 1010px var(--star-color), 1928px 1270px var(--star-color), 1316px 1426px var(--star-color), 1491px 1288px var(--star-color), 1819px 1636px var(--star-color), 1878px 115px var(--star-color), 1139px 1940px var(--star-color), 158px 1006px var(--star-color);
+  animation: animStar 50s linear infinite;
+}
+
+#stars2 {
+  width: 2px;
+  height: 2px;
+  box-shadow: 1819px 1083px var(--star-color), 1595px 1486px var(--star-color), 1912px 104px var(--star-color), 1538px 1139px var(--star-color), 1331px 1319px var(--star-color), 1388px 144px var(--star-color), 1845px 1206px var(--star-color), 1411px 1832px var(--star-color), 119px 1330px var(--star-color), 1230px 1404px var(--star-color), 1098px 1018px var(--star-color), 121px 1198px var(--star-color), 110px 110px var(--star-color), 1529px 1435px var(--star-color), 1114px 1735px var(--star-color), 1300px 1246px var(--star-color), 1915px 1599px var(--star-color), 1448px 1700px var(--star-color), 1121px 1893px var(--star-color), 1849px 1239px var(--star-color);
+  animation: animStar 100s linear infinite;
+}
+
+#stars3 {
+  width: 3px;
+  height: 3px;
+  box-shadow: 1288px 1233px var(--star-color), 1335px 1149px var(--star-color), 1808px 1133px var(--star-color), 129px 1153px var(--star-color), 1756px 1974px var(--star-color), 1906px 1196px var(--star-color), 1431px 1748px var(--star-color), 1520px 1940px var(--star-color), 1789px 1381px var(--star-color), 1382px 183px var(--star-color), 1841px 1024px var(--star-color), 124px 1200px var(--star-color), 174px 1902px var(--star-color), 133px 192px var(--star-color), 1358px 1909px var(--star-color), 1193px 127px var(--star-color), 1897px 1112px var(--star-color), 1788px 173px var(--star-color), 1254px 131px var(--star-color), 1149px 1911px var(--star-color);
+  animation: animStar 150s linear infinite;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
   }
 }
 .animate-blink {
