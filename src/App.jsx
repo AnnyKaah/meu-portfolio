@@ -400,7 +400,7 @@ function Hero({ language }) {
         </motion.div>
 
         {/* Imagem com Efeito de Glow */}
-        <motion.div variants={heroItemVariants} className="relative group lg:col-span-2 lg:justify-self-end">
+        <motion.div variants={heroItemVariants} className="relative group lg:col-span-2 lg:justify-self-end justify-self-center">
           <div className="absolute -inset-1.5 bg-gradient-to-r from-primary-start to-primary-end rounded-full blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 animate-pulse-glow"></div>
           <div className="relative">
             <img
