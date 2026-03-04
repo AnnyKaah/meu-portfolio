@@ -1,0 +1,68 @@
+.background-container {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  height: 100%;
+  width: 100%;
+  background-color: var(--background-light);
+}
+
+.dark .background-container {
+  background-color: var(--background-dark);
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: var(--highlight-color);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--highlight-color);
+  animation: float 25s infinite ease-in-out;
+  opacity: 0;
+}
+
+/* Distribuição e animação aleatória para cada partícula */
+.particle:nth-child(1) { top: 20%; left: 15%; animation-duration: 28s; animation-delay: -2s; }
+.particle:nth-child(2) { top: 50%; left: 30%; animation-duration: 32s; animation-delay: -5s; }
+.particle:nth-child(3) { top: 80%; left: 5%; animation-duration: 25s; animation-delay: -7s; }
+.particle:nth-child(4) { top: 10%; left: 85%; animation-duration: 35s; animation-delay: -1s; }
+.particle:nth-child(5) { top: 90%; left: 95%; animation-duration: 29s; animation-delay: -4s; }
+.particle:nth-child(6) { top: 5%; left: 50%; animation-duration: 24s; animation-delay: -8s; }
+.particle:nth-child(7) { top: 60%; left: 70%; animation-duration: 31s; animation-delay: -3s; }
+.particle:nth-child(8) { top: 30%; left: 80%; animation-duration: 26s; animation-delay: -6s; }
+.particle:nth-child(9) { top: 70%; left: 20%; animation-duration: 33s; animation-delay: -9s; }
+.particle:nth-child(10) { top: 40%; left: 40%; animation-duration: 27s; animation-delay: -10s; }
+/* Adicione mais se desejar */
+.particle:nth-child(11) { top: 15%; left: 5%; animation-duration: 38s; animation-delay: -12s; }
+.particle:nth-child(12) { top: 85%; left: 55%; animation-duration: 22s; animation-delay: -14s; }
+.particle:nth-child(13) { top: 25%; left: 90%; animation-duration: 36s; animation-delay: -11s; }
+.particle:nth-child(14) { top: 75%; left: 35%; animation-duration: 30s; animation-delay: -15s; }
+.particle:nth-child(15) { top: 55%; left: 10%; animation-duration: 23s; animation-delay: -13s; }
+
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(80px, 80px);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+}
