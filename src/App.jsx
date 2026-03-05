@@ -247,26 +247,134 @@ function ContactForm({ t }) {
 // CARD COMPONENTS
 // ═══════════════════════════════════════════════════
 
-function ProjectCard({ p, big, t }) {
+function ProjectCard({ p, index, t }) {
+  const [hov, setHov] = useState(false);
+  const num = String(index + 1).padStart(2, "0");
+  const isEven = index % 2 === 0;
+
   return (
-    <motion.div className="pcard" data-big={String(big)}
-      initial={{ opacity:0, y:36 }} whileInView={{ opacity:1, y:0 }}
-      viewport={{ once:true, margin:"-50px" }} transition={{ duration:0.5 }}
-      style={{ gridColumn: big ? "span 2" : "span 1", background:p.bg, "--accent":p.accent }}>
-      <div className="pcard-top" style={{ height: big ? 200 : 150 }}>
-        <span className="pcard-icon">{p.icon}</span>
-        <span className="pcard-label">{p.subtitle}</span>
-        <div className="pcard-overlay">
-          {p.links?.live && <a href={p.links.live} target="_blank" rel="noreferrer" className="pcard-btn pcard-fill">{t.demoBtn}</a>}
-          {p.links?.gh   && <a href={p.links.gh}   target="_blank" rel="noreferrer" className="pcard-btn pcard-out">{t.ghBtn}</a>}
+    <motion.article
+      initial={{ opacity:0, y:48 }} whileInView={{ opacity:1, y:0 }}
+      viewport={{ once:true, margin:"-60px" }} transition={{ duration:0.6, delay:index*0.08 }}
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      className="pcard-article"
+      style={{
+        display:"grid", gridTemplateColumns: isEven ? "1fr 420px" : "420px 1fr",
+        gap:0, borderRadius:24, overflow:"hidden",
+        border:`1px solid ${hov ? p.accent+"40" : "var(--br)"}`,
+        transition:"border-color 0.3s, box-shadow 0.3s",
+        boxShadow: hov ? `0 28px 70px rgba(0,0,0,0.5), 0 0 0 1px ${p.accent}20` : "0 4px 24px rgba(0,0,0,0.25)",
+        background:"var(--card)",
+      }}>
+
+      {/* ── TEXT SIDE ── */}
+      <div style={{
+        padding:"44px 48px", display:"flex", flexDirection:"column", justifyContent:"space-between",
+        order: isEven ? 1 : 2, background:"var(--card)", position:"relative", overflow:"hidden",
+      }}>
+        {/* Number watermark */}
+        <div style={{
+          position:"absolute", top:-18, right: isEven ? 24 : "auto", left: isEven ? "auto" : 24,
+          fontFamily:"'Playfair Display',serif", fontSize:"7rem", fontWeight:900, lineHeight:1,
+          color:p.accent, opacity:0.06, userSelect:"none", pointerEvents:"none",
+        }}>{num}</div>
+
+        <div>
+          {/* Index + category */}
+          <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
+            <span style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.65rem", color:p.accent, letterSpacing:"3px" }}>{num}</span>
+            <span style={{ width:32, height:1, background:`linear-gradient(90deg,${p.accent},transparent)` }}/>
+            <span style={{ fontSize:"0.65rem", color:"var(--muted)", letterSpacing:"2px", textTransform:"uppercase" }}>{p.subtitle}</span>
+            {p.links?.live && (
+              <span style={{ marginLeft:"auto", fontSize:"0.6rem", color:p.accent, fontFamily:"'Space Mono',monospace", letterSpacing:"1px",
+                padding:"2px 8px", border:`1px solid ${p.accent}40`, borderRadius:4 }}>LIVE</span>
+            )}
+          </div>
+
+          {/* Title */}
+          <h3 style={{
+            fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.6rem,2.5vw,2.1rem)",
+            fontWeight:900, color:"var(--text)", lineHeight:1.1, marginBottom:16,
+            letterSpacing:"-0.5px",
+          }}>{p.title}</h3>
+
+          {/* Accent line */}
+          <div style={{ width: hov ? "100%" : "48px", height:2, background:`linear-gradient(90deg,${p.accent},${p.accent}40)`, marginBottom:18, transition:"width 0.4s ease", borderRadius:2 }}/>
+
+          {/* Description */}
+          <p style={{ fontSize:"0.88rem", color:"var(--muted)", lineHeight:1.8, marginBottom:24 }}>{p.desc}</p>
+
+          {/* Tags */}
+          <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+            {p.tags.map(tg => (
+              <span key={tg} style={{ fontSize:"0.67rem", color:p.accent, background:`${p.accent}12`,
+                padding:"4px 10px", borderRadius:4, border:`1px solid ${p.accent}28`, fontWeight:500 }}>{tg}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Links */}
+        <div style={{ display:"flex", gap:10, marginTop:28, flexWrap:"wrap" }}>
+          {p.links?.live && (
+            <a href={p.links.live} target="_blank" rel="noreferrer" style={{
+              display:"inline-flex", alignItems:"center", gap:7,
+              padding:"10px 22px", background:`linear-gradient(135deg,${p.accent},#a855f7)`,
+              color:"#fff", borderRadius:50, textDecoration:"none", fontSize:"0.82rem",
+              fontWeight:700, boxShadow:`0 6px 20px ${p.accent}40`, cursor:"none",
+              transition:"transform 0.2s", transform: hov ? "translateY(-2px)" : "none",
+            }}>{t.demoBtn}</a>
+          )}
+          {p.links?.gh && (
+            <a href={p.links.gh} target="_blank" rel="noreferrer" style={{
+              display:"inline-flex", alignItems:"center", gap:7,
+              padding:"10px 22px", background:"transparent",
+              color:"var(--muted)", borderRadius:50, textDecoration:"none", fontSize:"0.82rem",
+              fontWeight:600, border:"1px solid var(--br)", cursor:"none",
+              transition:"all 0.2s", ...(hov?{borderColor:p.accent+"60",color:"var(--text)"}:{}),
+            }}>{t.ghBtn}</a>
+          )}
         </div>
       </div>
-      <div className="pcard-body">
-        <h3 className="pcard-title">{p.title}</h3>
-        <p className="pcard-desc">{p.desc}</p>
-        <div className="tags">{p.tags.map(tg=><span key={tg} className="tag">{tg}</span>)}</div>
+
+      {/* ── VISUAL SIDE ── */}
+      <div style={{
+        order: isEven ? 2 : 1,
+        background: p.grad || p.bg,
+        position:"relative", overflow:"hidden",
+        display:"flex", alignItems:"center", justifyContent:"center",
+        minHeight:280,
+      }}>
+        {/* Grid pattern */}
+        <div style={{ position:"absolute", inset:0, opacity:0.055,
+          backgroundImage:`repeating-linear-gradient(0deg,${p.accent} 0,transparent 1px,transparent 32px,${p.accent} 33px),repeating-linear-gradient(90deg,${p.accent} 0,transparent 1px,transparent 32px,${p.accent} 33px)` }}/>
+
+        {/* Glow */}
+        <div style={{ position:"absolute", width:260, height:260, borderRadius:"50%",
+          background:`radial-gradient(circle,${p.accent}30 0%,transparent 70%)`,
+          transition:"transform 0.5s, opacity 0.4s",
+          transform: hov ? "scale(1.5)" : "scale(1)", opacity: hov ? 1 : 0.7 }}/>
+
+        {/* Corner brackets */}
+        <div style={{position:"absolute",top:16,left:16,width:22,height:22,borderTop:`1.5px solid ${p.accent}60`,borderLeft:`1.5px solid ${p.accent}60`}}/>
+        <div style={{position:"absolute",top:16,right:16,width:22,height:22,borderTop:`1.5px solid ${p.accent}60`,borderRight:`1.5px solid ${p.accent}60`}}/>
+        <div style={{position:"absolute",bottom:16,left:16,width:22,height:22,borderBottom:`1.5px solid ${p.accent}60`,borderLeft:`1.5px solid ${p.accent}60`}}/>
+        <div style={{position:"absolute",bottom:16,right:16,width:22,height:22,borderBottom:`1.5px solid ${p.accent}60`,borderRight:`1.5px solid ${p.accent}60`}}/>
+
+        {/* Big icon */}
+        <div style={{
+          position:"relative", zIndex:2,
+          fontSize:"5.5rem",
+          filter:`drop-shadow(0 0 ${hov?"40px":"20px"} ${p.accent}80)`,
+          transform: hov ? "scale(1.12) translateY(-4px)" : "scale(1)",
+          transition:"transform 0.4s ease, filter 0.4s ease",
+        }}>{p.icon}</div>
+
+        {/* Accent bar */}
+        <div style={{ position:"absolute", bottom:0, left:0, right:0, height:3,
+          background:`linear-gradient(90deg,transparent,${p.accent},transparent)`,
+          opacity: hov ? 1 : 0.5, transition:"opacity 0.3s" }}/>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
@@ -480,8 +588,15 @@ export default function App() {
         .tl::before { content:''; position:absolute; left:23px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,#a855f7,transparent) }
 
         /* PROJECT CARDS */
-        .pg { display:grid; grid-template-columns:repeat(3,1fr); gap:16px }
-        .pcard { border-radius:18px; overflow:hidden; border:1px solid var(--br); transition:border-color 0.25s, box-shadow 0.25s, transform 0.25s }
+        .pg { display:flex; flex-direction:column; gap:20px }
+        @media (max-width:768px) {
+          .pcard-article { border-radius:18px !important }
+          .pcard-article > div { display:flex !important; flex-direction:column !important }
+          .pcard-article > div > div:first-child { order:2 !important; min-height:0 !important }
+          .pcard-article > div > div:last-child { order:1 !important; min-height:220px !important }
+        }
+        .pcard { border-radius:24px; overflow:hidden }
+        @media (max-width:900px) { .pcard > div[style] { grid-template-columns:1fr !important; grid-template-rows:260px auto } .pcard > div > div[style*="order: 2"], .pcard > div > div[style*="order:2"] { order:1 !important } }
         .pcard:hover { transform:translateY(-6px); box-shadow:0 22px 55px rgba(0,0,0,0.45) }
         .pcard-top { position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden }
         .pcard-icon { font-size:3rem; transition:transform 0.3s }
@@ -563,8 +678,7 @@ export default function App() {
           .hero-g { grid-template-columns:1fr }
           .hero-vis { display:none !important }
           .ag { grid-template-columns:1fr; gap:36px }
-          .pg { grid-template-columns:1fr }
-          .pcard[data-big="true"] { grid-column:span 1 }
+          .pg { flex-direction:column }
           .gg { grid-template-columns:1fr }
           .gcard[style*="span 2"] { grid-column:span 1 !important }
           .cg { grid-template-columns:1fr 1fr }
@@ -606,11 +720,11 @@ export default function App() {
         <ul className="nav-links">
           {navLinks.map(([id, lbl]) => <li key={id}><a href={`#${id}`}>{lbl}</a></li>)}
           <li style={{ display:"flex", gap:7 }}>
-            <button className={`ctrl-btn ${lang==="pt"?"on":""}`} onClick={() => setLang("pt")}>PT</button>
-            <button className={`ctrl-btn ${lang==="en"?"on":""}`} onClick={() => setLang("en")}>EN</button>
-            <button className="ctrl-btn" onClick={() => setDark(!dark)} title="Toggle theme">
+            {/* <button className={`ctrl-btn ${lang==="pt"?"on":""}`} onClick={() => setLang("pt")}>PT</button>*/}
+            {/*<button className={`ctrl-btn ${lang==="en"?"on":""}`} onClick={() => setLang("en")}>EN</button>*/}
+            {/*<button className="ctrl-btn" onClick={() => setDark(!dark)} title="Toggle theme">
               {dark ? "☀️" : "🌙"}
-            </button>
+            </button>*/}
           </li>
         </ul>
         {/* hamburger */}
@@ -786,7 +900,7 @@ export default function App() {
             {t.projectsDesc}
           </motion.p>
           <div className="pg">
-            {projects.map((p, i) => <ProjectCard key={p.id} p={p} big={i<2} t={t} />)}
+            {projects.map((p, i) => <ProjectCard key={p.id} p={p} index={i} t={t} />)}
           </div>
 
           {/* Web mini */}
